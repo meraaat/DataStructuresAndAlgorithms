@@ -33,49 +33,36 @@ func main() {
 		fmt.Println("Popped item: ", point)
 	}
 
-}
+	fmt.Println("-----------------------------------------------")
 
-// Stack with generics
-type Stack[T any] struct {
-	items []T
-}
+	// Create a stack of integers
+	intStack := &StackG[int]{}
+	intStack.Push(10)
+	intStack.Push(20)
+	intStack.Push(30)
 
-// Push adds an item to the stack
-func (s *Stack[T]) Push(item T) {
-	s.items = append(s.items, item)
-}
+	fmt.Println("Integer Stack size:", intStack.Size())
 
-// Pop removes and returns the top item from the stack
-func (s *Stack[T]) Pop() (T, error) {
+	topInt, _ := intStack.Peek()
+	fmt.Println("Top element (int):", topInt)
 
-	if len(s.items) == 0 {
-		var zero T
-		return zero, fmt.Errorf("Stack is empty")
+	for !intStack.IsEmpty() {
+		val, _ := intStack.Pop()
+		fmt.Println("Popped (int):", val)
 	}
 
-	item := s.items[len(s.items)-1]
-	s.items = s.items[:len(s.items)-1]
+	// Create a stack of strings
+	stringStack := &StackG[string]{}
+	stringStack.Push("Hello")
+	stringStack.Push("World")
 
-	return item, nil
-}
+	fmt.Println("\nString Stack size:", stringStack.Size())
 
-// Peek returns the last item without removing it
-func (s *Stack[T]) Peek() (T, error) {
+	topString, _ := stringStack.Peek()
+	fmt.Println("Top element (string):", topString)
 
-	if len(s.items) == 0 {
-		var zero T
-		return zero, fmt.Errorf("Stack is empty")
+	for !stringStack.IsEmpty() {
+		val, _ := stringStack.Pop()
+		fmt.Println("Popped (string):", val)
 	}
-
-	return s.items[len(s.items)-1], nil
-}
-
-// IsEmpty checks if the stack is empty
-func (s *Stack[T]) IsEmpty() bool {
-	return len(s.items) == 0
-}
-
-// Size returns the number of items in the stack
-func (s *Stack[T]) Size() int {
-	return len(s.items)
 }
