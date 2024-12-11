@@ -6,7 +6,7 @@ import (
 )
 
 type CircularQueue[T any] struct {
-	data       []T
+	data                        []T
 	front, rear, size, capacity int
 }
 
